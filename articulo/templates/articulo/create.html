@@ -1,0 +1,25 @@
+<form class="app-form row" method="post" action="{% url 'articulo-create' %}">
+    <h5>Registrar Articulo</h5>
+    <div class="input-field col m6 s12">
+        {{ form.codigo }}
+        <label for="id_codigo">Codigo</label>
+    </div>
+    <div class="input-field col m6 s12">
+        {{ form.nombre }}
+        <label for="id_nombre">Nombre</label>
+    </div>
+    <div class="input-field col m6 s12">
+        {{ form.unidad }}
+        <label for="id_unidad">Unidad</label>
+    </div>
+    <div class="input-field col m6 s12">
+        {{ form.numero_parte }}
+        <label for="id_numero_parte">Numero Parte</label>
+    </div>
+  </div>
+    {% csrf_token %}
+    <div class="col s12 display-flex justify-content-end mt-3">
+        <button type="submit" class="btn indigo mr-1">Guardar</button>
+        <button type="button" class="modal-action modal-close btn btn-light">Cancelar</button>
+    </div>
+</form>

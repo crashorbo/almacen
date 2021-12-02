@@ -1,0 +1,76 @@
+{% load static %}
+
+<div class="sidebar">
+        <div class="logo-details">
+            <i class="material-icons">settings</i>
+            <span class="logo_name">EMCOISA</span>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="{% url 'home' %}">
+                    <i class="material-icons">home</i>
+                    <span class="link_name">Inicio</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">Configuracion</a></li>                    
+                </ul>
+            </li>            
+            <li>
+                <div class="icon-link">
+                    <a href="#">
+                        <i class="material-icons">settings</i>
+                        <span class="link_name">Configuracion</span>                        
+                    </a>
+                    <i class="material-icons arrow">expand_more</i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Configuracion</a></li>
+                    <li><a href="#">Sub1</a></li>
+                    <li><a href="#">Sub2</a></li>
+                    <li><a href="#">Sub3</a></li>
+                </ul>
+            </li>            
+            <li>
+                <div class="icon-link">
+                    <a href="#">
+                        <i class="material-icons">settings</i>
+                        <span class="link_name">Otros</span>                        
+                    </a>
+                    <i class="material-icons arrow">expand_more</i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="">Otros</a></li>
+                    <li><a href="">Sub1</a></li>
+                    <li><a href="">Sub2</a></li>
+                    <li><a href="">Sub3</a></li>
+                </ul>
+            </li>  
+            <li>
+                <div class="icon-link">
+                    <a href="#">
+                        <i class="material-icons">settings</i>
+                        <span class="link_name">Configuracion</span>                        
+                    </a>
+                    <i class="material-icons arrow">expand_more</i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="">Configuracion</a></li>
+                    <li><a href="{% url 'user-list' %}">Usuarios</a></li>
+                    <li><a href="">Sub2</a></li>
+                    <li><a href="">Sub3</a></li>
+                </ul>
+            </li>           
+            <li>
+                <div class="profile-details">
+                    <div class="profile-content">
+                        <img src="img/profile.jpg" alt="profile">
+                    </div>
+                    <div class="name-job">
+                        <div class="profile_name">Prem Shahi</div>
+                        <div class="job">Web Designer</div>
+                    </div>
+                    <i class="material-icons">logout</i>
+                </div>
+            </li>
+        </ul>
+    </div>

@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Lista Usuarios
+{% endblock title %}
+
+{% block vendorcss %}
+    <!-- DataTables -->
+  <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+  <link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+  <link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
+{% endblock vendorcss %}
+
+{% block pagelevelcss %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/pages/data-tables.css' %}">
+{% endblock pagelevelcss %}
+
+{% block section_title %}
+    Usuarios
+{% endblock section_title %}
+
+{% block mainbody %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Usuarios</h1>
+                </div>                
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li><button id="btn-usuario" data-url={% url 'user-create' %} type="button" class="btn btn-primary btn-block"><i class="fas fa-plus"></i></button></li>                    
+                    </ol>
+                </div>
+            </div>            
+        </div><!-- /.container-fluid -->
+    </section>
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <table id="datatable-usuario" class=" table table-bordered table-hover display" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Rol</th>
+                                        <th>Usuario</th>
+                                        <th>Nombres</th>
+                                        <th>Apellidos</th>
+                                        <th>Numero Documento</th>
+                                        <th>Fecha Nacimiento</th>
+                                        <th>Telefono</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for user in object_list %}
+                                    <tr>
+                                        <td>{{ user.rol }}</td>
+                                        <td>{{ user.email }}</td>
+                                        <td>{{ user.first_name }}</td>
+                                        <td>{{ user.last_name }}</td>
+                                        <td>{{ user.document_number }}</td>
+                                        <td>{{ user.birthday}}</td>
+                                        <td>{{ user.telefono }}</td>
+                                    </tr>                        
+                                    {% endfor %}                
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Rol</th>
+                                        <th>Usuario</th>
+                                        <th>Nombres</th>
+                                        <th>Apellidos</th>
+                                        <th>Numero Documento</th>
+                                        <th>Fecha Nacimiento</th>
+                                        <th>Telefono</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock mainbody %}
+
+{% block vendorjs %}
+    <!-- DataTables  & Plugins -->
+<script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+{% endblock vendorjs %}
+
+{% block pagejs %}
+<script src="{% static 'app/js/pages/user/index.js' %}"></script>
+{% endblock pagejs%}
