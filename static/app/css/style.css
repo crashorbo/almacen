@@ -19,3 +19,28 @@ hr {
     border: 0;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
+
+.options {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.options .fa-edit,
+.options .fa-trash,
+.options .fa-check {
+    cursor: pointer;
+}
+
+.options .fa-edit {
+    color: var(--warning);
+}
+
+.options .fa-trash {
+    color: var(--danger);
+    margin-left: 5px;
+}
+
+.options .fa-check {
+    color: var(--success);
+    margin-left: 5px;
+}

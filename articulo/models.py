@@ -12,6 +12,8 @@ class Unidad(models.Model):
                           editable=False)
     nombre_completo = models.CharField(max_length=100)
     nombre_corto = models.CharField(max_length=10)
+    deleted = models.BooleanField(default=False)
+    
     created = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(User,
                              on_delete=models.SET_NULL,
@@ -30,6 +32,7 @@ class Categoria(models.Model):
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField(blank=True,
                                    null=True)
+    deleted = models.BooleanField(default=False)
     created = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(User,
                              on_delete=models.SET_NULL,
@@ -46,6 +49,8 @@ class Articulo(models.Model):
     unidad = models.ForeignKey(Unidad,
                                on_delete=models.CASCADE)
     numero_parte = models.CharField(max_length=50)
+    deleted = models.BooleanField(default=False)
+    
     created = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(User,
                              on_delete=models.SET_NULL,

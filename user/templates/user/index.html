@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}
-    Lista Usuarios
+    Usuarios
 {% endblock title %}
 
 {% block vendorcss %}
@@ -43,40 +43,31 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <table id="datatable-usuario" class=" table table-bordered table-hover display" style="width:100%">
+                            <table id="datatable-usuario" class="table table-bordered table-hover display" style="width:100%" data-url="{% url 'user-list-json' %}">
                                 <thead>
                                     <tr>
-                                        <th>Rol</th>
                                         <th>Usuario</th>
+                                        <th>Rol</th>
                                         <th>Nombres</th>
                                         <th>Apellidos</th>
                                         <th>Numero Documento</th>
                                         <th>Fecha Nacimiento</th>
                                         <th>Telefono</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    {% for user in object_list %}
-                                    <tr>
-                                        <td>{{ user.rol }}</td>
-                                        <td>{{ user.email }}</td>
-                                        <td>{{ user.first_name }}</td>
-                                        <td>{{ user.last_name }}</td>
-                                        <td>{{ user.document_number }}</td>
-                                        <td>{{ user.birthday}}</td>
-                                        <td>{{ user.telefono }}</td>
-                                    </tr>                        
-                                    {% endfor %}                
+                                <tbody>                                    
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>Rol</th>
                                         <th>Usuario</th>
+                                        <th>Rol</th>
                                         <th>Nombres</th>
                                         <th>Apellidos</th>
                                         <th>Numero Documento</th>
                                         <th>Fecha Nacimiento</th>
                                         <th>Telefono</th>
+                                        <th></th>
                                     </tr>
                                 </tfoot>
                             </table>

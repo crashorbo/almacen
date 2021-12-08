@@ -4,82 +4,78 @@
 
 
 {% block title %}
-    Lista Articulos
+    Articulos
 {% endblock title %}
 
 {% block vendorcss %}
-    <link rel="stylesheet" type="text/css" href="{% static 'vendors/flag-icon/css/flag-icon.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'vendors/data-tables/css/jquery.dataTables.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'vendors/data-tables/css/select.dataTables.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'vendors/select2/select2.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'vendors/select2/select2-materialize.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
 {% endblock vendorcss %}
 
-{% block pagelevelcss %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/pages/data-tables.css' %}">
-{% endblock pagelevelcss %}
+{% block pagecss %}
+    
+{% endblock pagecss %}
 
 {% block mainbody %}
-    <div class="row">
-        <div class="col s12">
-            <div class="breadcrumbs-inline pt-3 pb-1" id="breadcrumbs-wrapper">
-                <!-- Search for small screen-->
-                <div class="container">
-                    <div class="row">
-                        <div class="col s10 m6 l6 breadcrumbs-left">
-                            <h5 class="mt-0 mb-0 display-inline"><span>Articulos</span></h5>                            
-                        </div>
-                        <div class="col s2 m6 l6">
-                            <a id="btn-articulo-create" class="btn btn-floating waves-effect waves-light breadcrumbs-btn right" href="{% url 'articulo-create' %}"><i class="material-icons">add</i></a>                    
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Articulos</h1>
+                </div>                
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li><button id="btn-articulo-create" data-url={% url 'articulo-create' %} type="button" class="btn btn-primary btn-block"><i class="fas fa-plus"></i></button></li>                    
+                    </ol>
+                </div>
+            </div>            
+        </div><!-- /.container-fluid -->
+    </section>
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <table id="datatable-articulo" class="table table-bordered table-hover display" data-url="{% url 'articulo-list' %}">
+                                <thead>
+                                    <tr>
+                                        <th>Codigo</th>
+                                        <th>Nombre</th>
+                                        <th>Unidad</th>
+                                        <th>Numero Parte</th>
+                                        <th></th>
+                                </thead>                                            
+                                <tfoot>
+                                    <tr>
+                                        <th>Codigo</th>
+                                        <th>Nombre</th>
+                                        <th>Unidad</th>
+                                        <th>Numero Parte</th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col s12">
-                <div class="container">
-                    <div class="section section-data-tables">
-                        <div class="card">
-                            <div class="card-content">
-                                <div class="row">
-                                    <div class="col s12">
-                                        <table id="page-length-option" class="display" data-url="{% url 'articulo-list' %}">
-                                            <thead>
-                                                <tr>
-                                                    <th>Codigo</th>
-                                                    <th>Nombre</th>
-                                                    <th>Unidad</th>
-                                                    <th>Numero Parte</th>
-                                            </thead>                                            
-                                            <tfoot>
-                                                <tr>
-                                                    <th>Codigo</th>
-                                                    <th>Nombre</th>
-                                                    <th>Unidad</th>
-                                                    <th>Numero Parte</th>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
-                                    </div>
-                                </div>                        
-                            </div>
-                        </div>                    
-                    </div>                    
-                </div>
-                <div class="content-overlay"></div>
-            </div>
-        </div>        
-    </div>    
-  </div>
+        </div>
+    </div>
 {% endblock mainbody %}
 
 {% block vendorjs %}
-    <script src="{% static 'vendors/data-tables/js/jquery.dataTables.min.js' %}"></script>
-    <script src="{% static 'vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js' %}"></script>
-    <script src="{% static 'vendors/data-tables/js/dataTables.select.min.js' %}"></script>
-    <script src="{% static 'vendors/select2/select2.full.min.js' %}"></script>
+    <!-- DataTables  & Plugins -->
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
 {% endblock vendorjs %}
 
-{% block pageleveljs %}
-    <script src="{% static 'js/pages/articulo/index.js' %}"></script>
-{% endblock pageleveljs%}
+{% block pagejs %}
+    <script src="{% static 'app/js/pages/articulo/index.js' %}"></script>
+{% endblock pagejs%}

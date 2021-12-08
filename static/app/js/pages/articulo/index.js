@@ -1,8 +1,9 @@
-const articuloUrl = document.querySelector('#page-length-option').dataset.url;
+const articuloTable = document.querySelector('#datatable-articulo');
+const articuloUrl = articuloTable.dataset.url;
 const btnArticuloCreate = document.querySelector('#btn-articulo-create');
 const modalContent = document.querySelector('.modal-content');
 
-const articulos = $('#page-length-option').DataTable({
+const articulos = $('#datatable-articulo').DataTable({
     "language": {
         "decimal":        "",
         "emptyTable":     "No hay datos disponibles en la tabla",
@@ -37,46 +38,47 @@ const articulos = $('#page-length-option').DataTable({
     "ajax": articuloUrl
 });
 
-$(document).ready(() => {
-    $('.modal').modal({
-        dismissible: false,        
-    });    
-})
-
-const postData = async (url, data) => {
-    await axios(url, {
-        method: "POST",
-        data: data
+const getTemplate = async(url, container) => {    
+    await axios(url)
+    .then( res => {
+        container.innerHTML = res.data;
+        $('#main-modal').modal('show');
     })
-    .then(res => {
-        if (res.data.status === 200) {
-            $('.modal').modal('close');
-            categorias.ajax.reload(null, false);
-            unidades.ajax.reload(null, false);
-            M.toast({
-                html: res.data.message,
-                classes: "success"
-            })          
-        } else {
-            throw new Error("Error")
-        }     
-    })
-    .catch(error => {
-        console.log(error)
-    });
 }
 
-const getTemplate = async (url, container) => {
-    await axios(url)
-    .then(res => {
-        container.innerHTML = res.data;
-        $("#id_unidad").formSelect();          
-    });
+const postForm = async(url, data) => {
+    await axios(url, {
+        method: 'post',
+        data: data
+    })
+    .then( res => {
+        console.log(res.data);
+        $('#main-modal').modal('hide');
+        articulos.ajax.reload(null, false);        
+    })
 }
 
 btnArticuloCreate.addEventListener('click', (e)=>{
     e.preventDefault();    
-    $('.modal').modal('open');   
-    url = btnArticuloCreate.getAttribute('href');
-    getTemplate(url, modalContent);
+    let url = e.target.dataset.url;
+    if (!url) {
+        url = e.target.parentElement.dataset.url;
+    }
+    getTemplate(url, modalContent);    
 });
+
+modalContent.addEventListener('submit', (e)=> {
+    e.preventDefault();
+    const url = e.target.getAttribute("action");
+    const data = new FormData(e.target);    
+    postForm(url, data);
+});
+
+articuloTable.addEventListener('click', (e) => {
+    if (e.target.classList.contains('fa-trash')) {
+        console.log(e.target);
+    }    
+    if (e.target.classList.contains('fa-edit')) {
+        getTemplate(e.target.dataset.url, modalContent);
+    }
+})
