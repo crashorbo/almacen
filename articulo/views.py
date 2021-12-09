@@ -2,14 +2,15 @@ from django.db.models import Q
 from django.http.response import JsonResponse
 from django.views.generic import FormView, TemplateView
 from django.urls import reverse
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView
 
 from django_datatables_view.base_datatable_view import BaseDatatableView
 from django.utils.html import escape
 
-from articulo.forms import ArticuloCreateForm, CategoriaCreateForm, UnidadCreateForm
+from articulo.forms import AlmacenCreateForm, ArticuloCreateForm, CategoriaCreateForm, UnidadCreateForm
 
-from articulo.models import Articulo, Unidad, Categoria
+from articulo.models import Almacen, Articulo, Unidad, Categoria
 from user.models import User
 
 
@@ -73,7 +74,7 @@ class UnidadListJson(BaseDatatableView):
     def filter_queryset(self, qs):
         search = self.request.GET.get('search[value]', None)
         if search:
-            qs = qs.filter(Q(nombre_completo__contains=search)|Q(nombre_corto__contains=search)|Q(descripcion__contains=search))
+            qs = qs.filter(Q(nombre_completo__contains=search)|Q(nombre_corto__contains=search))
         return qs
     
     def prepare_results(self, qs):
@@ -123,7 +124,7 @@ class ArticuloListJson(BaseDatatableView):
     def filter_queryset(self, qs):
         search = self.request.GET.get('search[value]', None)
         if search:
-            qs = qs.filter(Q(codigo__contains=search)|Q(nombre__contains=search)|Q(numero_parte__contains=search))
+            qs = qs.filter(Q(codigo__contains=search)|Q(nombre__contains=search)|Q(unidad__contains=search)|Q(numero_parte__contains=search))
         return qs
     
     def prepare_results(self, qs):
@@ -163,3 +164,60 @@ class EditArticuloView(UpdateView):
     def form_valid(self, form):
         form.save()
         return JsonResponse({'status': 200, 'message': 'Articulo Editado con exito'})
+    
+class AlmacenView(TemplateView):
+    template_name = 'almacen/index.html'
+    
+
+class AlmacenListJson(BaseDatatableView):
+    model = Almacen    
+    order_columns = ['codigo', 'nombre', 'descripcion']
+    max_display_length = 50    
+    
+    def filter_queryset(self, qs):
+        search = self.request.GET.get('search[value]', None)
+        if search:
+            qs = qs.filter(Q(codigo__contains=search)|Q(nombre__contains=search)|Q(descripcion__contains=search))
+        return qs
+    
+    def prepare_results(self, qs):
+        # prepare list with output column data
+        # queryset is already paginated here
+        json_data = []
+        for item in qs:
+            json_data.append([
+                escape(item.codigo),
+                escape(item.nombre),
+                escape(item.descripcion),                
+                '<span class="options"><a href="{}"><i class="fas fa-eye"></i></a><i data-url="{}" class="fas fa-edit"></i><i data-url="{}" class="{}"></i></span>'.format(
+                    reverse('almacen-detail', args=[item.id]),
+                    reverse('almacen-edit', args=[item.id]),
+                    '',
+                    'fas fa-trash' if not item.deleted else 'fas fa-check'
+                    )
+            ])
+        return json_data
+
+
+class CreateAlmacenView(FormView):
+    template_name = 'almacen/create.html'
+    form_class = AlmacenCreateForm
+    
+    def form_valid(self, form):
+        form = form.save(commit=False)
+        form.user = User.objects.get(pk=self.request.user.id)
+        form.save()
+        return JsonResponse({'status': 200, 'message': 'Almacen Registrado con exito'})
+    
+class EditAlmacenView(UpdateView):
+    template_name = 'almacen/edit.html'
+    form_class = AlmacenCreateForm
+    model = Almacen
+    
+    def form_valid(self, form):
+        form.save()
+        return JsonResponse({'status': 200, 'message': 'Almacen Editado con exito'})
+    
+class DetailAlmacenView(DetailView):
+    template_name = 'almacen/detail.html'
+    model = Almacen

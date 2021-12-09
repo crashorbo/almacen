@@ -14,4 +14,9 @@ urlpatterns = [
     path('create/', views.CreateArticuloView.as_view(), name='articulo-create'),
     path('edit/<pk>/', views.EditArticuloView.as_view(), name='articulo-edit'),
     path('list/data/', views.ArticuloListJson.as_view(), name='articulo-list'),
+    path('almacen/', views.AlmacenView.as_view(), name='almacenes'),
+    path('almacen/create/', views.CreateAlmacenView.as_view(), name='almacen-create'),
+    path('almacen/edit/<pk>/', views.EditAlmacenView.as_view(), name='almacen-edit'),
+    path('almacen/list/data/', views.AlmacenListJson.as_view(), name='almacen-list'),
+    path('almacen/detail/<pk>/', views.DetailAlmacenView.as_view(), name='almacen-detail'),
 ]

@@ -23,11 +23,14 @@ hr {
 .options {
     display: flex;
     flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
 }
 
 .options .fa-edit,
 .options .fa-trash,
-.options .fa-check {
+.options .fa-check,
+.options .fa-eye {
     cursor: pointer;
 }
 
@@ -43,4 +46,9 @@ hr {
 .options .fa-check {
     color: var(--success);
     margin-left: 5px;
+}
+
+.options .fa-eye {
+    color: var(--blue);
+    margin-right: 5px;
 }

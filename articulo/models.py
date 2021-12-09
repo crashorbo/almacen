@@ -66,8 +66,30 @@ class Almacen(models.Model):
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField(blank=True,
                                    null=True)
+    deleted = models.BooleanField(default=False)
     created = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(User,
                              on_delete=models.SET_NULL,
                              null=True,
                              blank=True)
+    
+class AlmacenArticulo(models.Model):
+    id = models.UUIDField(primary_key=True,
+                          default=uuid.uuid4,
+                          editable=False)
+    almacen = models.ForeignKey(Almacen, on_delete=models.CASCADE)
+    categoria =models.ForeignKey(Categoria, on_delete=models.CASCADE)
+    
+    deleted = models.BooleanField(default=False)
+    created = models.DateTimeField(default=timezone.now)
+    user = models.ForeignKey(User,
+                             related_name='user',
+                             on_delete=models.SET_NULL,
+                             null=True,
+                             blank=True)
+    updated = models.DateTimeField(blank=True, null=True)
+    user_updated = models.ForeignKey(User,
+                                     related_name='user_updated',
+                                     on_delete=models.SET_NULL,
+                                     null=True,
+                                     blank=True)

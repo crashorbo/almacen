@@ -1,7 +1,7 @@
 from django import forms
-from django.forms import ModelForm
+from django.forms import ModelForm, widgets
 
-from articulo.models import Articulo, Categoria, Unidad
+from articulo.models import Almacen, Articulo, Categoria, Unidad
 
 class CategoriaCreateForm(ModelForm):
     class Meta:
@@ -33,4 +33,14 @@ class ArticuloCreateForm(ModelForm):
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
             'unidad': forms.Select(attrs={'class': 'form-control'}),
             'numero_parte': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+        
+class AlmacenCreateForm(ModelForm):
+    class Meta:
+        model = Almacen
+        fields = ['codigo', 'nombre', 'descripcion']
+        widgets = {
+            'codigo': forms.TextInput(attrs={'class': 'form-control'}),
+            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
+            'descripcion': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
         }
